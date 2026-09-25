@@ -1,0 +1,17 @@
+[Unit]
+Description=NEXVIRO Code Battle Telegram bot
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=nexviro
+WorkingDirectory=/opt/nexviro-code-battle
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/nexviro-code-battle/.venv/bin/python -m bot.main
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/nexviro-code-battle/storage
+[Install]
+WantedBy=multi-user.target

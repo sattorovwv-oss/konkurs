@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0d0c"><meta name="description" content="NEXVIRO Code Battle — создавай проекты, соревнуйся и побеждай.">
+<title>{% block title %}NEXVIRO Code Battle{% endblock %}</title>
+<link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/static/css/app.css"><script src="/static/js/app.js" defer></script>
+</head>
+<body data-contest-status="{{ c.status if c is defined else '' }}" data-results-published="{{ 'true' if c is defined and c.results_published else 'false' }}" data-track-participation="{{ 'yes' if p is defined else 'no' }}" data-participation="{{ p.status if p is defined and p else '' }}">
+<a class="skip-link" href="#main">К содержимому</a>
+<header class="header"><div class="container nav">
+<a class="brand" href="/" aria-label="NEXVIRO Code Battle — главная"><span class="brand-mark">N<span>↗</span></span><span>NEXVIRO<small>CODE BATTLE</small></span></a>
+<nav aria-label="Главная навигация"><a href="/contests">Конкурсы</a>{% if user %}<a href="/profile">Профиль</a>{% if is_admin %}<a href="/admin" class="admin-link">Admin</a>{% endif %}<form action="/logout" method="post" class="inline"><input type="hidden" name="csrf_token" value="{{ csrf }}"><button class="nav-logout" type="submit">Выйти ↗</button></form>{% else %}<a class="button small" href="/login">Войти <span>↗</span></a>{% endif %}</nav>
+</div></header>
+<main id="main" class="container">
+{% if flashes %}<div class="notices" role="status">{% for message in flashes %}<div class="notice success">✓ {{ message }}</div>{% endfor %}</div>{% endif %}
+{% if errors %}<div class="notices" role="alert">{% for error in errors %}<div class="notice danger">{{ error }}</div>{% endfor %}</div>{% endif %}
+{% block content %}{% endblock %}
+</main>
+<footer class="container footer"><span>© NEXVIRO · Создано для тех, кто создаёт.</span><span>Время на сайте: Душанбе · UTC+5</span></footer>
+<dialog id="confirm-dialog"><form method="dialog"><div class="eyebrow">ПОДТВЕРЖДЕНИЕ</div><h2>Продолжить?</h2><p id="confirm-message"></p><div id="confirm-preview"></div><div class="actions"><button value="cancel" class="button secondary">Отмена</button><button value="confirm" class="button">Подтвердить</button></div></form></dialog>
+</body></html>

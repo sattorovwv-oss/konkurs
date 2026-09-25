@@ -1,0 +1,15 @@
+.env
+.env.*
+!.env.example
+.git
+.venv
+__pycache__
+**/__pycache__
+.pytest_cache
+.ruff_cache
+storage/receipts/*
+storage/submissions/*
+tests
+*.db
+*.sqlite*
+*.log

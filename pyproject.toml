@@ -1,0 +1,9 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+asyncio_mode = "auto"
+markers = ["postgres: requires PostgreSQL TEST_DATABASE_URL"]
+[tool.ruff]
+line-length = 120
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]

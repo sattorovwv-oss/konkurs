@@ -1,0 +1,10 @@
+# Replace the placeholders after creating a named Cloudflare Tunnel.
+# Keep the credentials JSON out of Git.
+tunnel: YOUR_TUNNEL_ID
+credentials-file: /absolute/path/to/YOUR_TUNNEL_ID.json
+ingress:
+  - hostname: nexvirobattle.cfd
+    service: http://127.0.0.1:17563
+    originRequest:
+      httpHostHeader: nexvirobattle.cfd
+  - service: http_status:404

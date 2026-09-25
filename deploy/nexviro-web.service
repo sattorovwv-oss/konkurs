@@ -1,0 +1,17 @@
+[Unit]
+Description=NEXVIRO Code Battle web
+After=network-online.target
+Wants=network-online.target
+[Service]
+User=nexviro
+WorkingDirectory=/opt/nexviro-code-battle
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/nexviro-code-battle/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 17563 --limit-concurrency 64
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/nexviro-code-battle/storage
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,11 @@
+{% macro badge(status) %}<span class="badge {{ status }}"><i></i>{{ status|status }}</span>{% endmacro %}
+{% macro csrf_input(csrf) %}<input type="hidden" name="csrf_token" value="{{ csrf }}">{% endmacro %}
+{% macro pagination(page, has_next, suffix='') %}{% if page > 1 or has_next %}<nav class="pagination" aria-label="Страницы">{% if page > 1 %}<a class="button secondary" href="?page={{ page-1 }}{{ suffix }}">← Назад</a>{% endif %}<span>Страница {{ page }}</span>{% if has_next %}<a class="button secondary" href="?page={{ page+1 }}{{ suffix }}">Далее →</a>{% endif %}</nav>{% endif %}{% endmacro %}
+{% macro contest_card(c, count=0, admin=false) %}
+<article class="contest-card">
+<div class="card-top"><span class="mono muted">BATTLE / {{ '%03d'|format(c.id) }}</span>{{ badge(c.status) }}</div>
+<div class="card-symbol" aria-hidden="true">{% if c.status == 'running' %}↯{% elif c.results_published %}✦{% else %}⌘{% endif %}</div>
+<h3><a href="{% if admin %}/admin/contests/{{ c.id }}{% else %}/contests/{{ c.slug }}{% endif %}">{{ c.title }}</a></h3><p class="muted card-summary">{{ c.summary }}</p>
+<div class="card-data"><div><small>Призовой фонд</small><strong>{{ c.prize_pool|money }} <span>TJS</span></strong></div><div><small>Участие</small><strong>{{ c.fee_tjs|money }} <span>TJS</span></strong></div></div>
+<div class="card-bottom"><span>{{ c.starts_at|localtime }}<small>{{ count }} / {{ c.max_participants }} участников</small></span><a class="icon-link" aria-label="Открыть {{ c.title }}" href="{% if admin %}/admin/contests/{{ c.id }}{% else %}/contests/{{ c.slug }}{% endif %}">↗</a></div>
+</article>{% endmacro %}
